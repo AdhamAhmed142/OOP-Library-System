@@ -1,0 +1,32 @@
+OOP-Library-System:
+
+A menu-driven Java console application that models a library lending system, built to demonstrate core Object-Oriented Programming concepts: encapsulation, inheritance, abstraction, and polymorphism.
+ 
+What it does:
+
+The system manages a catalog of library items (Books, Magazines, DVDs), registers members, and lets members borrow and return items — all through one shared `LibraryItem` type, so the engine never needs to know or care which concrete kind of item it's handling.
+
+Abstraction & Inheritance:
+
+ `LibraryItem` is an abstract class; `Book`, `Magazine`, and `DVD` extend it and each supply their own loan period and type.
+
+
+Polymorphism [Method Overriding]:
+ 
+`listCatalog()` and `borrowItem()` work purely through the `LibraryItem` reference type. There is no `instanceof` chain anywhere in the lending logic; each subclass's overridden `getLoanPeriodDays()` / `getType()` / `displayInfo()` is simply called and the correct version runs.
+
+Encapsulation:
+
+All fields are private with validated getters/setters. `borrowed` can only change via `markBorrowed()` / `markReturned()`, never a public setter.
+
+Constructors:
+
+ `LibraryItem` auto-generates unique ids (`ITEM-1`, `ITEM-2`, ...) via a static counter, and tracks `totalItemsCreated` across every subclass.
+
+Collections:
+
+ `Library` uses a `Map<String, LibraryItem>` catalog, a `Map<String, Member>` for members, and a `Set<String>` for currently-borrowed ids.
+
+Custom Exceptions & Input Validation: 
+
+every rule violation throws `LibraryException`; the menu guards against non-numeric input using `NumberFormatException` handling.
